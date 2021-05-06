@@ -1,5 +1,6 @@
 from dataframe_vis import DataFrameVisualizer
 import numpy as np
+from web_client import start_local_host
 
 
 def clean_dfv(dfv):
@@ -16,3 +17,8 @@ def main():
 
 if __name__ == '__main__':
     main()
+    start_local_host()
+
+    import time
+
+    time.sleep(60)
