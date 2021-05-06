@@ -71,3 +71,14 @@ class DataFrameVisualizer:
 
     def __str__(self):
         return str(self.df)
+
+    @staticmethod
+    def save_as_file(file=None):
+        """
+        saves all the data to a file instead of console
+        :param file:
+        :return:
+        """
+        # TODO
+
+
