@@ -2,7 +2,7 @@ from pandas import DataFrame
 from pandas._typing import Axes, Dtype
 from typing import Optional
 import inspect
-from atomic_counter import AtomicCounter
+from src.atomic_counter import AtomicCounter
 from pandas.core.generic import NDFrame
 from pandas.core.arraylike import OpsMixin
 

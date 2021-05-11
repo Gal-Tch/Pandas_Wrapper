@@ -1,8 +1,8 @@
-from dataframe_vis import DataFrameVisualizer
+from src.dataframe_vis import DataFrameVisualizer
 
-from web_client import start_local_host
+from src.web_client import start_local_host
 
-from constants import *
+from src.constants import *
 import pandas as pd
 import numpy as np
 import time
