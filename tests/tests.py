@@ -22,17 +22,9 @@ def dfv_simple_test_1():
 
 
 def dfv_html_test():
-    # data = pd.read_csv(DATA_1, index_col='description')
-    # dfv = DataFrameVisualizer(data)
-    # data.to_csv(DATA_1)
-    # print(dfv)
-    # with open('test.html', 'w') as f:
-    #     f.write(dfv.to_html())
-    # print('waiting...')
-    # start_local_host()
-    # time.sleep(60)
-    web_client.start_gui()
-
+    data = {'a': [1, 1, np.nan, 4], 'b': [1, 1, 3, 4]}
+    dfv = DataFrameVisualizer(data, name='first_data_frame')
+    web_client.start_gui(dfv)
 
 
 def dfv_write_csv():

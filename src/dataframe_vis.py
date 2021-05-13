@@ -26,8 +26,9 @@ class DataFrameVisualizer:
             copy: bool = False,
             name=None,
             parent=None,
-            caller=None
+            caller=None,
     ):
+        self.caller_info = ''
         self.parent = parent
         if isinstance(data, DataFrameVisualizer):
             self.parent = data
@@ -42,8 +43,9 @@ class DataFrameVisualizer:
         self._print_caller_data(caller)
 
     def _print_caller_data(self, caller):
-        print(G + "DataFrame '{}' was created by function {}, on line {}.".format(self.name, caller.function,
-                                                                                  caller.lineno) + W)
+        self.caller_info = "DataFrame '{}' was created by function {}, on line {}.".format(self.name, caller.function,
+                                                                                  caller.lineno)
+        print(G + self.caller_info + W)
         print(G + "file: {}, -> {}".format(caller.filename, caller.code_context[0]) + W)
 
     def print_parents(self):

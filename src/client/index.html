@@ -2,10 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Pandas Visualizer</title>
-    <script src="eel.js"></script>
+    <title>Dataframe Visualizer</title>
+    <script type="text/javascript" src="/eel.js"></script>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+    </style>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script>
+        function addTableName(text) {
+            const div = document.getElementById("tableName");
+            div.innerHTML += "<h2>" + text + "</h2>";
+        }
+
+        function addCallerInfo(text) {
+            const div = document.getElementById("callerInfo");
+            div.innerHTML += text;
+        }
+
+        function addTableContent(table) {
+            const div = document.getElementById("table");
+            div.innerHTML += table;
+        }
+        eel.expose(addTableName);
+        eel.expose(addCallerInfo);
+        eel.expose(addTableContent);
+    </script>
 </head>
 <body>
-    <h1>Hello World!</h1>
+    <h1>Welcome to the Dataframe Visualizer!</h1>
+    <div id="tableName" class="tableName"></div>
+    <div id="callerInfo"></div>
+    <div class="tableName"><br>Your Dataframe content:<br><br></div>
+    <div id="table"></div>
 </body>
 </html>

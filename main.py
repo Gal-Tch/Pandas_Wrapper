@@ -1,4 +1,4 @@
-from tests.tests import dfv_html_test
+from tests.tests import *
 
 if __name__ == '__main__':
     dfv_html_test()
