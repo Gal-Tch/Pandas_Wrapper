@@ -1,6 +1,7 @@
 from src.dataframe_vis import DataFrameVisualizer
 
-from src.web_client import start_local_host
+# from src.web_client import start_local_host
+from src import web_client
 
 from src.constants import *
 import pandas as pd
@@ -21,15 +22,17 @@ def dfv_simple_test_1():
 
 
 def dfv_html_test():
-    data = pd.read_csv(DATA_1, index_col='description')
-    dfv = DataFrameVisualizer(data)
-    data.to_csv(DATA_1)
-    print(dfv)
-    with open('test.html', 'w') as f:
-        f.write(dfv.to_html())
-    print('waiting...')
-    start_local_host()
-    time.sleep(60)
+    # data = pd.read_csv(DATA_1, index_col='description')
+    # dfv = DataFrameVisualizer(data)
+    # data.to_csv(DATA_1)
+    # print(dfv)
+    # with open('test.html', 'w') as f:
+    #     f.write(dfv.to_html())
+    # print('waiting...')
+    # start_local_host()
+    # time.sleep(60)
+    web_client.start_gui()
+
 
 
 def dfv_write_csv():
