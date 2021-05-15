@@ -1,12 +1,10 @@
 from src.dataframe_vis import DataFrameVisualizer
 
-# from src.web_client import start_local_host
 from src import web_client
 
 from src.constants import *
 import pandas as pd
 import numpy as np
-import time
 
 
 def _test_1_clean_dfv(dfv):
@@ -48,5 +46,19 @@ def dfv_mat_mul_test():
     dfv_1 = DataFrameVisualizer(data_1)
 
     data_2 = {'A': [1, 1], 'B': [1, 1]}
-    dfv_2 = DataFrameVisualizer(data_2)
+    dfv_2 = DataFrameVisualizer(data_2).T
     print(dfv_1 @ dfv_2)
+
+
+def dfv_large_calculation_test():
+    data = pd.read_csv(DATA_1, index_col='description')
+    dfv_1 = DataFrameVisualizer(data)
+    dfv_2 = pd.concat([dfv_1, dfv_1])
+    dfv_3 = dfv_2.join(dfv_2, how='outer', lsuffix='_left', rsuffix='_right')
+    print(dfv_3)
+
+
+def dfv_properties():
+    data = {'A': [2, 1], 'B': [1, 1]}
+    dfv = DataFrameVisualizer(data)
+    print(dfv._mgr)

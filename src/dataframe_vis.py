@@ -5,6 +5,7 @@ import inspect
 from src.atomic_counter import AtomicCounter
 from pandas.core.generic import NDFrame
 from pandas.core.arraylike import OpsMixin
+import time
 
 W = '\033[0m'  # white (normal)
 R = '\033[31m'  # red
@@ -12,6 +13,9 @@ G = '\033[32m'  # green
 O = '\033[33m'  # orange
 B = '\033[34m'  # blue
 P = '\033[35m'  # purple
+
+_INIT_MSG = "DataFrame '{}' was created by function {}, on line {}. time to create: {}"
+_NULL_OBJECT = object()
 
 
 class DataFrameVisualizer:
@@ -27,31 +31,33 @@ class DataFrameVisualizer:
             name=None,
             parent=None,
             caller=None,
+            calc_time=0.0
     ):
         self.caller_info = ''
         self.parent = parent
         if isinstance(data, DataFrameVisualizer):
             self.parent = data
             data = data.df
-
+        star_time = time.time()
         self.df = DataFrame(data, index, columns, dtype, copy)
+        end_time = time.time()
+        self.time = calc_time + (end_time - star_time)
         if not name:
-            name = 'df_{}'.format(DataFrameVisualizer.__name_counter.increment())
-        self.name = name
+            name = 'df'
+        self.name = str(DataFrameVisualizer.__name_counter.increment()) + "_" + name
         if not caller:
             caller = inspect.stack()[1]
         self._print_caller_data(caller)
 
     def _print_caller_data(self, caller):
-        self.caller_info = "DataFrame '{}' was created by function {}, on line {}.".format(self.name, caller.function,
-                                                                                  caller.lineno)
+        self.caller_info = _INIT_MSG.format(self.name, caller.function, caller.lineno, round(self.time, 2))
         print(G + self.caller_info + W)
         print(G + "file: {}, -> {}".format(caller.filename, caller.code_context[0]) + W)
 
     def print_parents(self):
         parent = self.parent
         parents_str = ""
-        while parent:
+        while parent is not None:
             parents_str = G + parent.name + W + ' -> ' + parents_str
             parent = parent.parent
         parents_str = parents_str + R + self.name + W
@@ -59,27 +65,18 @@ class DataFrameVisualizer:
 
     def _wrap_single_pandas_method(self, func, caller, func_name):
         def inner(*args, **kwargs):
+            star_time = time.time()
             result = func(*args, **kwargs)
+            end_time = time.time()
             if isinstance(result, DataFrame):
                 if result is self.df:
                     return self
-                name = str(func_name) + '_' + str(DataFrameVisualizer.__name_counter.increment())
-                return DataFrameVisualizer(data=result, parent=self, caller=caller, name=name)
+                name = str(func_name)
+                return DataFrameVisualizer(data=result, parent=self, caller=caller, name=name,
+                                           calc_time=(end_time - star_time))
             return result
 
         return inner
-
-    @staticmethod
-    def _attributes_dict_containing(attr):
-        df_attributes = DataFrame.__dict__
-        nd_attributes = NDFrame.__dict__
-        op_attributes = OpsMixin.__dict__
-        if attr in df_attributes:
-            return df_attributes
-        if attr in nd_attributes:
-            return nd_attributes
-        if attr in op_attributes:
-            return op_attributes
 
     def __repr__(self):
         return self.df.__repr__()
@@ -88,6 +85,8 @@ class DataFrameVisualizer:
         self.df.__len__()
 
     def __matmul__(self, other):
+        if isinstance(other, DataFrameVisualizer):
+            other = other.df
         caller = inspect.stack()[1]
         func = self.df.__matmul__
         func_name = 'dot'
@@ -95,6 +94,8 @@ class DataFrameVisualizer:
         return wrapped_method(other)
 
     def __rmatmul__(self, other):
+        if isinstance(other, DataFrameVisualizer):
+            other = other.df
         caller = inspect.stack()[1]
         func = self.df.__rmatmul__
         func_name = 'r_dot'
@@ -103,12 +104,12 @@ class DataFrameVisualizer:
 
     def __getattr__(self, attr):
         caller = inspect.stack()[1]
-        attributes_dict = DataFrameVisualizer._attributes_dict_containing(attr)
-        if attributes_dict:
-            if callable(attributes_dict[attr]):
-                return self._wrap_single_pandas_method(getattr(self.df, attr), caller, attr)
+        attr_value = getattr(self.df, attr, _NULL_OBJECT)
+        if attr_value is not _NULL_OBJECT:
+            if callable(attr_value):
+                return self._wrap_single_pandas_method(attr_value, caller, attr)
             else:
-                return getattr(self.df, attr)
+                return attr_value
         raise AttributeError("DataFrameVisualizer object has no attribute: '{}'".format(attr))
 
     def __str__(self):
@@ -117,7 +118,7 @@ class DataFrameVisualizer:
     def __getitem__(self, item):
         caller = inspect.stack()[1]
         func = self.df.__getitem__
-        func_name = 'get_item:_{}'.format(item)
+        func_name = 'get_item_.'
         wrapped_method = self._wrap_single_pandas_method(func=func, caller=caller, func_name=func_name)
         return wrapped_method(item)
 
@@ -129,6 +130,8 @@ class DataFrameVisualizer:
         return wrapped_method(key, value)
 
     def __divmod__(self, other):
+        if isinstance(other, DataFrameVisualizer):
+            other = other.df
         caller = inspect.stack()[1]
         func = self.df.__divmod__
         func_name = 'divmod'
@@ -136,11 +139,24 @@ class DataFrameVisualizer:
         return wrapped_method(other)
 
     def __rdivmod__(self, other):
+        if isinstance(other, DataFrameVisualizer):
+            other = other.df
         caller = inspect.stack()[1]
         func = self.df.__rdivmod__
         func_name = 'rdivmod'
         wrapped_method = self._wrap_single_pandas_method(func=func, caller=caller, func_name=func_name)
         return wrapped_method(other)
+
+    def join(self, other, on=None, how="left", lsuffix="", rsuffix="", sort=False):
+        df_name = 'pandas_df'
+        if isinstance(other, DataFrameVisualizer):
+            df_name = other.name
+            other = other.df
+        caller = inspect.stack()[1]
+        func = self.df.join
+        func_name = '{}_join_with_{}'.format(how, df_name)
+        wrapped_method = self._wrap_single_pandas_method(func=func, caller=caller, func_name=func_name)
+        return wrapped_method(other, on, how, lsuffix, rsuffix, sort)
 
     @staticmethod
     def save_as_file(file=None):
