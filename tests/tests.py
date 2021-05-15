@@ -1,3 +1,4 @@
+import life_time_stats_client
 from src.dataframe_vis import DataFrameVisualizer
 
 from src import web_client
@@ -62,3 +63,9 @@ def dfv_properties():
     data = {'A': [2, 1], 'B': [1, 1]}
     dfv = DataFrameVisualizer(data)
     print(dfv._mgr)
+
+def number_of_dataframes_created_test():
+    a = DataFrameVisualizer([1,1,1,],None,None,None,False,"tamir")
+    print(life_time_stats_client.get_number_of_dataframes_created())
+    a = DataFrameVisualizer([1,1,1,],None,None,None,False,"tamir2")
+    print(life_time_stats_client.get_number_of_dataframes_created()) # should be +1 than last print

@@ -6,6 +6,7 @@ from src.atomic_counter import AtomicCounter
 from pandas.core.generic import NDFrame
 from pandas.core.arraylike import OpsMixin
 import time
+import life_time_stats_client
 
 W = '\033[0m'  # white (normal)
 R = '\033[31m'  # red
@@ -41,7 +42,7 @@ class DataFrameVisualizer:
         star_time = time.time()
         self.df = DataFrame(data, index, columns, dtype, copy)
         end_time = time.time()
-        self.time = calc_time + (end_time - star_time)
+        self.total_time = calc_time + (end_time - star_time)
         if not name:
             name = 'df'
         self.name = str(DataFrameVisualizer.__name_counter.increment()) + "_" + name
@@ -49,8 +50,10 @@ class DataFrameVisualizer:
             caller = inspect.stack()[1]
         self._print_caller_data(caller)
 
+
+
     def _print_caller_data(self, caller):
-        self.caller_info = _INIT_MSG.format(self.name, caller.function, caller.lineno, round(self.time, 2))
+        self.caller_info = _INIT_MSG.format(self.name, caller.function, caller.lineno, round(self.total_time, 2))
         print(G + self.caller_info + W)
         print(G + "file: {}, -> {}".format(caller.filename, caller.code_context[0]) + W)
 
@@ -68,12 +71,16 @@ class DataFrameVisualizer:
             star_time = time.time()
             result = func(*args, **kwargs)
             end_time = time.time()
+            calc = end_time-star_time
             if isinstance(result, DataFrame):
+
                 if result is self.df:
+                    self.total_time += calc
                     return self
                 name = str(func_name)
                 return DataFrameVisualizer(data=result, parent=self, caller=caller, name=name,
                                            calc_time=(end_time - star_time))
+            self.total_time += calc
             return result
 
         return inner
@@ -112,6 +119,8 @@ class DataFrameVisualizer:
                 return attr_value
         raise AttributeError("DataFrameVisualizer object has no attribute: '{}'".format(attr))
 
+    def __del__(self):
+        life_time_stats_client.notify_dataframe_use(self.total_time)
     def __str__(self):
         return str(self.df)
 
