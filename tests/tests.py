@@ -1,4 +1,4 @@
-import life_time_stats_client
+from src import life_time_stats_client
 from src.dataframe_vis import DataFrameVisualizer
 
 from src import web_client
@@ -17,7 +17,7 @@ def dfv_simple_test_1():
     dfv = DataFrameVisualizer(data, name='first_data_frame')
     c = _test_1_clean_dfv(dfv)
     d = DataFrameVisualizer(c, name='last_dataframe')
-    d.print_parents()
+    d.show_history()
 
 
 def dfv_html_test():
@@ -56,7 +56,8 @@ def dfv_large_calculation_test():
     dfv_1 = DataFrameVisualizer(data)
     dfv_2 = pd.concat([dfv_1, dfv_1])
     dfv_3 = dfv_2.join(dfv_2, how='outer', lsuffix='_left', rsuffix='_right')
-    print(dfv_3)
+    dfv_4 = dfv_3.drop_duplicates()
+    dfv_4.show_history()
 
 
 def dfv_properties():

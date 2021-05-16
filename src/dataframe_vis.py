@@ -6,7 +6,7 @@ from src.atomic_counter import AtomicCounter
 from pandas.core.generic import NDFrame
 from pandas.core.arraylike import OpsMixin
 import time
-import life_time_stats_client
+from src import life_time_stats_client
 
 W = '\033[0m'  # white (normal)
 R = '\033[31m'  # red
@@ -50,20 +50,18 @@ class DataFrameVisualizer:
             caller = inspect.stack()[1]
         self._print_caller_data(caller)
 
-
-
     def _print_caller_data(self, caller):
         self.caller_info = _INIT_MSG.format(self.name, caller.function, caller.lineno, round(self.total_time, 2))
         print(G + self.caller_info + W)
         print(G + "file: {}, -> {}".format(caller.filename, caller.code_context[0]) + W)
 
-    def print_parents(self):
+    def show_history(self):
         parent = self.parent
         parents_str = ""
         while parent is not None:
-            parents_str = G + parent.name + W + ' -> ' + parents_str
+            parents_str = G + str(round(parent.total_time,2)) + ':' + parent.name + W + ' -> ' + parents_str
             parent = parent.parent
-        parents_str = parents_str + R + self.name + W
+        parents_str = parents_str + R + str(round(self.total_time,2)) + ': ' + self.name + W
         print(parents_str)
 
     def _wrap_single_pandas_method(self, func, caller, func_name):
@@ -71,7 +69,7 @@ class DataFrameVisualizer:
             star_time = time.time()
             result = func(*args, **kwargs)
             end_time = time.time()
-            calc = end_time-star_time
+            calc = end_time - star_time
             if isinstance(result, DataFrame):
 
                 if result is self.df:
@@ -121,6 +119,7 @@ class DataFrameVisualizer:
 
     def __del__(self):
         life_time_stats_client.notify_dataframe_use(self.total_time)
+
     def __str__(self):
         return str(self.df)
 

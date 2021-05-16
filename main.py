@@ -1,5 +1,5 @@
 from tests.tests import *
-import life_time_stats_client
+from src import life_time_stats_client
 if __name__ == '__main__':
     # dfv_simple_test_1()
     # dfv_html_test()
