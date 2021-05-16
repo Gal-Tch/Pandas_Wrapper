@@ -53,11 +53,23 @@ def dfv_mat_mul_test():
 
 def dfv_large_calculation_test():
     data = pd.read_csv(DATA_1, index_col='description')
-    dfv_1 = DataFrameVisualizer(data)
-    dfv_2 = pd.concat([dfv_1, dfv_1])
+    dfv_1 = DataFrameVisualizer(data, name='city_data')
+    dfv_2 = pd.concat([dfv_1, dfv_1, dfv_1, dfv_1, dfv_1])
     dfv_3 = dfv_2.join(dfv_2, how='outer', lsuffix='_left', rsuffix='_right')
     dfv_4 = dfv_3.drop_duplicates()
-    dfv_4.show_history()
+    dfv_5 = dfv_4.dropna()
+    dfv_5.show_history()
+
+
+def dfv_smarter_large_calculation_test():
+    data = pd.read_csv(DATA_1, index_col='description')
+    dfv_1 = DataFrameVisualizer(data, name='city_data')
+    dfv_2 = pd.concat([dfv_1, dfv_1, dfv_1, dfv_1, dfv_1])
+    dfv_smart = dfv_2.drop_duplicates()
+    dfv_3 = dfv_smart.join(dfv_smart, how='outer', lsuffix='_left', rsuffix='_right')
+    dfv_4 = dfv_3.drop_duplicates()
+    dfv_5 = dfv_4.dropna()
+    dfv_5.show_history()
 
 
 def dfv_properties():
@@ -65,8 +77,9 @@ def dfv_properties():
     dfv = DataFrameVisualizer(data)
     print(dfv._mgr)
 
+
 def number_of_dataframes_created_test():
-    a = DataFrameVisualizer([1,1,1,],None,None,None,False,"tamir")
+    a = DataFrameVisualizer([1, 1, 1, ], None, None, None, False, "tamir")
     print(life_time_stats_client.get_number_of_dataframes_created())
-    a = DataFrameVisualizer([1,1,1,],None,None,None,False,"tamir2")
-    print(life_time_stats_client.get_number_of_dataframes_created()) # should be +1 than last print
+    a = DataFrameVisualizer([1, 1, 1, ], None, None, None, False, "tamir2")
+    print(life_time_stats_client.get_number_of_dataframes_created())  # should be +1 than last print

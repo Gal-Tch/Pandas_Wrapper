@@ -58,10 +58,13 @@ class DataFrameVisualizer:
     def show_history(self):
         parent = self.parent
         parents_str = ""
+        sum_time = self.total_time
         while parent is not None:
-            parents_str = G + str(round(parent.total_time,2)) + ':' + parent.name + W + ' -> ' + parents_str
+            sum_time += parent.total_time
+            parents_str = G + str(round(parent.total_time, 2)) + ': ' + parent.name + W + ' -> ' + parents_str
             parent = parent.parent
-        parents_str = parents_str + R + str(round(self.total_time,2)) + ': ' + self.name + W
+        parents_str = parents_str + R + str(round(self.total_time, 2)) + ': ' + self.name + W + '. total time: ' + str(
+            round(sum_time, 2))
         print(parents_str)
 
     def _wrap_single_pandas_method(self, func, caller, func_name):
