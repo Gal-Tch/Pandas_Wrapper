@@ -2,13 +2,14 @@ import setuptools
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
-
+REQUIRED = ['pandas', 'numpy', 'eel']
 setuptools.setup(
     name="Pandas_Wrapper-Gal-Tch",
-    version="0.0.1",
+    version="0.0.7",
     author="Gal-Tch",
     author_email="author@example.com", #???
     description="A wrapper to the pandas package",
+    install_requires=REQUIRED,
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Gal-Tch/Pandas_Wrapper.git",
@@ -22,5 +23,5 @@ setuptools.setup(
     ],
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
-    python_requires=">=3.8",  # TODO: make sure its 3.6
+    python_requires=">=3.8",  # TODO: make sure its 3.8
 )

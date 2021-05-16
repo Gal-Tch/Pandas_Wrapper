@@ -1,0 +1,19 @@
+Metadata-Version: 2.1
+Name: Pandas-Wrapper-Gal-Tch
+Version: 0.0.7
+Summary: A wrapper to the pandas package
+Home-page: https://github.com/Gal-Tch/Pandas_Wrapper.git
+Author: Gal-Tch
+Author-email: author@example.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/pypa/sampleproject/issues
+Description: # Pandas_Wrapper
+        
+        Lets hope this will work
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown

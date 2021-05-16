@@ -1,9 +1,7 @@
-from src import life_time_stats_client
-from src.dataframe_vis import DataFrameVisualizer
+from Pandas_Wrapper_pcg import life_time_stats_client, web_client
+from Pandas_Wrapper_pcg.dataframe_vis import DataFrameVisualizer
 
-from src import web_client
-
-from src.constants import *
+from Pandas_Wrapper_pcg.constants import *
 import pandas as pd
 import numpy as np
 

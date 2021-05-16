@@ -1,6 +1,6 @@
 import eel
 
-from src.dataframe_vis import DataFrameVisualizer
+from Pandas_Wrapper_pcg.dataframe_vis import DataFrameVisualizer
 
 
 def start_gui(dfv: DataFrameVisualizer):

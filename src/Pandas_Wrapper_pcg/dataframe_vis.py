@@ -2,11 +2,11 @@ from pandas import DataFrame
 from pandas._typing import Axes, Dtype
 from typing import Optional
 import inspect
-from src.atomic_counter import AtomicCounter
+from Pandas_Wrapper_pcg.atomic_counter import AtomicCounter
 from pandas.core.generic import NDFrame
 from pandas.core.arraylike import OpsMixin
 import time
-from src import life_time_stats_client
+from Pandas_Wrapper_pcg import life_time_stats_client
 
 W = '\033[0m'  # white (normal)
 R = '\033[31m'  # red
