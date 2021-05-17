@@ -2,10 +2,10 @@ import setuptools
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
-REQUIRED = ['pandas', 'numpy', 'eel']
+REQUIRED = ['pandas', 'numpy']
 setuptools.setup(
     name="Pandas_Wrapper-Gal-Tch",
-    version="0.0.7",
+    version="0.0.9",
     author="Gal-Tch",
     author_email="author@example.com", #???
     description="A wrapper to the pandas package",
