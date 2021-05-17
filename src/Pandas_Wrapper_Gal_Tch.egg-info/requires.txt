@@ -1,2 +1,4 @@
+bottle-websocket
 pandas
 numpy
+eel
