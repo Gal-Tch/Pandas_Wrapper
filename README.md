@@ -10,6 +10,6 @@ use the command :
 pip install -i https://test.pypi.org/simple/ Pandas-Wrapper-Gal-Tch
 
 to install the Pandas_wrapper package.
-our package uses "pandas", "numpy" and "eel" package that will be installed automatically.
+our package uses "pandas", "numpy" and "eel" packages that will be installed automatically.
 
 # License:
