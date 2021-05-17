@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: Pandas-Wrapper-Gal-Tch
-Version: 0.1.8
+Version: 0.2.1
 Summary: A wrapper to the pandas package
 Home-page: https://github.com/Gal-Tch/Pandas_Wrapper.git
 Author: Gal-Tch
@@ -9,7 +9,19 @@ License: UNKNOWN
 Project-URL: Bug Tracker, https://github.com/pypa/sampleproject/issues
 Description: # Pandas_Wrapper
         
-        Lets hope this will work
+        # Description:
+        Our package is wrapping the "pandas" package, the package is updating the user whenever a new dataFrame is created and how long it took
+        for the program to create the dataFrame. the program can also display a gui that shows the used dataFrame.
+        
+        # Installation:
+        use the command : 
+        
+        pip install -i https://test.pypi.org/simple/ Pandas-Wrapper-Gal-Tch
+        
+        to install the Pandas_wrapper package.
+        our package uses "pandas", "numpy" and "eel" packages that will be installed automatically.
+        
+        # License:
         
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3

@@ -1,11 +1,10 @@
 import eel
 
 from Pandas_Wrapper_pcg.dataframe_vis import DataFrameVisualizer
-
+import pathlib
 
 def start_gui(dfv: DataFrameVisualizer):
-    eel.init("src/client")
-
+    eel.init(str(pathlib.Path(__file__).parent.absolute()) + "/client")
     eel.addTableName(dfv.name)
     eel.addCallerInfo(dfv.caller_info)
     eel.addTableContent(dfv.to_html())
