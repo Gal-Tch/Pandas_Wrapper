@@ -1,5 +1,4 @@
 from tests.tests import *
-from Pandas_Wrapper_pcg import life_time_stats_client
 
 if __name__ == '__main__':
     # dfv_simple_test_1()

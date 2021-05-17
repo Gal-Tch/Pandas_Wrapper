@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 REQUIRED = ['pandas', 'numpy']
 setuptools.setup(
     name="Pandas_Wrapper-Gal-Tch",
-    version="0.0.9",
+    version="0.1.6",
     author="Gal-Tch",
     author_email="author@example.com", #???
     description="A wrapper to the pandas package",
@@ -21,6 +21,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",  # TODO: choose licence, also update licence file
         "Operating System :: OS Independent",
     ],
+    py_modules=['Pandas_Wrapper_pcg'],
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     python_requires=">=3.8",  # TODO: make sure its 3.8
