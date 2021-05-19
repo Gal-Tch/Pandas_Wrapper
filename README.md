@@ -4,7 +4,7 @@
 Our package is wrapping the "pandas" package, the package is updating the user whenever a new dataFrame is created and how long it took
 for the program to create the dataFrame. the program can also display a gui that shows the used dataFrame.
 
-# Installation:
+# Installation and usage:
 use the command : 
 
 pip install -i https://test.pypi.org/simple/ Pandas-Wrapper-Gal-Tch
