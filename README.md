@@ -17,7 +17,7 @@ to import use : from Pandas_Wrapper_pcg.dataframe_vis import DataFrameVisualizer
 then you can use DataFrameVisualizer like you would use Pandas.DataFrame, just now it will visualize it for you. (all other methods used on Pandas
 dataFrame can be used on DataFrameVisualizer)
 
--Gui -
+- Gui:
 to use the gui on a DataFrame first you need to use this import command:
 
 from Pandas_Wrapper_pcg import life_time_stats_client, web_client
