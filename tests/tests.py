@@ -11,7 +11,7 @@ def _test_1_clean_dfv(dfv):
 
 
 def dfv_simple_test_1():
-    data = {'a': [1, 1, np.nan, 4], 'b': [1, 1, 3, 4]}
+    data = PEOPLE_DICT
     dfv = DataFrameVisualizer(data, name='first_data_frame')
     c = _test_1_clean_dfv(dfv)
     d = DataFrameVisualizer(c, name='last_dataframe')

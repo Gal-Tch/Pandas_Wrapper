@@ -55,17 +55,24 @@ class DataFrameVisualizer:
         print(G + self.caller_info + W)
         print(G + "file: {}, -> {}".format(caller.filename, caller.code_context[0]) + W)
 
-    def show_history(self):
+    def get_history(self, monochrome=False):
+        if monochrome:
+            g, r, w = ('', '', '')
+        else:
+            g, r, w = (G, R, W)
         parent = self.parent
         parents_str = ""
         sum_time = self.total_time
         while parent is not None:
             sum_time += parent.total_time
-            parents_str = G + str(round(parent.total_time, 2)) + ': ' + parent.name + W + ' -> ' + parents_str
+            parents_str = g + str(round(parent.total_time, 2)) + ': ' + parent.name + w + ' -> ' + parents_str
             parent = parent.parent
-        parents_str = parents_str + R + str(round(self.total_time, 2)) + ': ' + self.name + W + '. total time: ' + str(
+        parents_str = parents_str + r + str(round(self.total_time, 2)) + ': ' + self.name + w + '. total time: ' + str(
             round(sum_time, 2))
-        print(parents_str)
+        return parents_str
+
+    def show_history(self):
+        print(self.get_history())
 
     def _wrap_single_pandas_method(self, func, caller, func_name):
         def inner(*args, **kwargs):
@@ -168,12 +175,3 @@ class DataFrameVisualizer:
         func_name = '{}_join_with_{}'.format(how, df_name)
         wrapped_method = self._wrap_single_pandas_method(func=func, caller=caller, func_name=func_name)
         return wrapped_method(other, on, how, lsuffix, rsuffix, sort)
-
-    @staticmethod
-    def save_as_file(file=None):
-        """
-        saves all the data to a file instead of console
-        :param file:
-        :return:
-        """
-        # TODO

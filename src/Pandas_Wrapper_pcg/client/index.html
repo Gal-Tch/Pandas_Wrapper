@@ -5,13 +5,18 @@
     <title>Dataframe Visualizer</title>
     <script type="text/javascript" src="/eel.js"></script>
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
     </style>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script>
         function addTableName(text) {
             const div = document.getElementById("tableName");
             div.innerHTML += "<h2>" + text + "</h2>";
+        }
+
+        function addTableHistory(text) {
+            const div = document.getElementById("tableHistory");
+            div.innerHTML += text;
         }
 
         function addCallerInfo(text) {
@@ -23,15 +28,18 @@
             const div = document.getElementById("table");
             div.innerHTML += table;
         }
+
         eel.expose(addTableName);
+        eel.expose(addTableHistory)
         eel.expose(addCallerInfo);
         eel.expose(addTableContent);
     </script>
 </head>
 <body>
-    <h1>Welcome to the Dataframe Visualizer!</h1>
+<h1>Welcome to the Dataframe Visualizer!</h1>
     <div id="tableName" class="tableName"></div>
     <div id="callerInfo"></div>
+    <div id="tableHistory"><br>History:  </div>
     <div class="tableName"><br>Your Dataframe content:<br><br></div>
     <div id="table"></div>
 </body>
