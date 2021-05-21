@@ -4,8 +4,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 REQUIRED = ['bottle-websocket','pandas', 'numpy', 'eel']
 setuptools.setup(
-    name="Pandas_Wrapper-Gal-Tch",
-    version="0.2.2",
+    name="Pandas_Wrapper",
+    version="0.0.0",
     author="Gal-Tch",
     author_email="author@example.com", #???
     description="A wrapper to the pandas package",

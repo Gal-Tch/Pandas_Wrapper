@@ -7,7 +7,7 @@ for the program to create the dataFrame. the program can also display a gui that
 # Installation and usage:
 use the command : 
 
-pip install -i https://test.pypi.org/simple/ Pandas-Wrapper-Gal-Tch
+pip install -i https://test.pypi.org/simple/ Pandas-Wrapper
 
 to install the Pandas_wrapper package.
 our package uses "pandas", "numpy" and "eel" packages that will be installed automatically.
