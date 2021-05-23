@@ -5,8 +5,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
 REQUIRED = ['bottle-websocket','pandas', 'numpy', 'eel']
 setuptools.setup(
     name="Pandas_Wrapper",
-    version="0.0.1",
-    author="Alon Shevach",
+    version="0.0.2",
+    author="Alon Shevach, Gal Tchinio, Guy Sudri, Tamir Or.",
     author_email="alon.shevach1@gmail.com",
     description="A wrapper to the pandas package",
     install_requires=REQUIRED,
