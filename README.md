@@ -30,10 +30,7 @@ this will pop a Gui that will show you your Dataframe.
 # License:
 BSD 3-Clause License
 
-Copyright (c) 2008-2011, AQR Capital Management, LLC, Lambda Foundry, Inc. and PyData Development Team
-All rights reserved.
-
-Copyright (c) 2011-2021, Open source contributors.
+Copyright (c) 2021, Alon Shevach, Gal Tchinio, Guy Sudri, Tamir Or.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
