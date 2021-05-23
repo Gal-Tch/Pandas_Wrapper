@@ -1,4 +1,4 @@
-# Pandas_Wrapper
+# Pandas Visualizer
 
 # Description:
 Our package is wrapping the "pandas" package, the package is updating the user whenever a new dataFrame is created and how long it took
