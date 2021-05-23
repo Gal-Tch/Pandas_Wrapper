@@ -5,9 +5,9 @@ Our package is wrapping the "pandas" package, the package is updating the user w
 for the program to create the dataFrame. the program can also display a gui that shows the used dataFrame.
 
 # Installation and usage:
-use the command : 
+Use the command: 
 
-pip install -i https://test.pypi.org/simple/ Pandas-Wrapper
+`pip install -i https://test.pypi.org/simple/ Pandas-Wrapper`
 
 to install the Pandas_wrapper package.
 our package uses "pandas", "numpy" and "eel" packages that will be installed automatically.
